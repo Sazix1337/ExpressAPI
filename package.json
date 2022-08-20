@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.18.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "main": "ExpressAPI.js",
+  "scripts": {
+    "start": "webpack --mode production -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

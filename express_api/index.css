@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@300&display=swap');
+
+body {
+    font-family: "Open Sans";
+    overflow-x: hidden;
+
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #184025;
+}
+
+.route_line {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+}
+
+.routes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #62d987;
+    width: 800px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.no-routes {
+    text-align: center;
+}
+
+.route_title {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
