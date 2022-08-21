@@ -56,5 +56,5 @@ class ExpressAPI {
 
 
 const expressApi = new ExpressAPI(8800, "localhost");
-expressApi.Init()
-module.exports = ExpressAPI
+expressApi.Init();
+module.exports = ExpressAPI;
