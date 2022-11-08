@@ -25,11 +25,24 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+}
+
+.route {
+    position: relative;
     border: 3px solid #62d987;
     width: 800px;
     height: 60px;
     border-radius: 5px;
+    align-items: center;
+    display: flex;
+    margin: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 450%);
+}
+
+.route h3 {
+    margin: 5px;
 }
 
 .no-routes {
@@ -41,4 +54,40 @@ body {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.request {
+    position: absolute;
+    background: none;
+    outline: none;
+    border: 1px solid #000;
+    border-radius: 3px;
+    color: #000;
+    background: #62d987;
+    cursor: pointer;
+    height: 30px;
+    width: 70px;
+    transition: all .22s;
+    left: 90%;
+}
+
+.request:hover {
+    background: #000;
+    color: #fff;
+}
+
+.response {
+    height: 150px;
+    width: 800px;
+    border: 3px solid #000;
+    margin-top: 320px;
+    margin-left: 245px;
+    padding-bottom: 30px;
+    border-radius: 3px;
+    overflow-y: scroll;
+    background-color: #333;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }

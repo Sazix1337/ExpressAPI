@@ -2,6 +2,17 @@ class ExpressAPI {
     #express = require('express');
     #app = this.#express();
     routes = [];
+    RequestModel = class {
+        constructor(rq) {
+            this.rq = rq;
+        }
+    }
+
+    ResponseModel = class {
+        constructor(rs) {
+            this.rs = rs;
+        }
+    }
 
     constructor(PORT, host, connectMessage) {
         this.PORT = PORT;
@@ -16,6 +27,10 @@ class ExpressAPI {
             res.send(this.getRoutes());
         });
 
+        this.#app.get("/exhost", (req, res) => {
+            res.send(this.getHost());
+        });
+
         this.#app.get('/express', (req, res) => {
             res.sendFile("/express_api/index.html", {root: __dirname})
         })
@@ -25,36 +40,42 @@ class ExpressAPI {
         });
     }
 
-    RouteGet(path, callback) {
+    RouteGet(path, callback, rs = this.ResponseModel) {
         this.#app.get(path, callback);
-        this.routes.push({path, method: "GET", callback});
+        this.routes.push({path, method: "GET", callback, responseType: rs.rs.type});
     }
 
-    RoutePost(path, callback, RequestModel, ResponseModel) {
+    RoutePost(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.post(path, callback);
-        this.routes.push({path, method: "POST", callback, requestModel: RequestModel, responseModel: ResponseModel});
+        this.routes.push({path, method: "POST", callback, requestModel: rq.rq, responseModel: rs.rs});
     }
 
-    RouteDelete(path, callback, RequestModel, ResponseModel) {
+    RouteDelete(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.delete(path, callback);
-        this.routes.push({path, method: "DELETE", callback, requestModel: RequestModel, responseModel: ResponseModel});
+        this.routes.push({path, method: "DELETE", callback, requestModel: rq.rq, responseModel: rs.rs});
     }
 
-    RoutePut(path, callback, RequestModel, ResponseModel) {
+    RoutePut(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.put(path, callback);
-        this.routes.push({path, method: "PUT", callback, requestModel: RequestModel, responseModel: ResponseModel});
+        this.routes.push({path, method: "PUT", callback, responseType: rs.rs});
     }
 
-    RouteUse(toUse, RequestModel) {
+    RouteUse(toUse) {
         this.#app.use(toUse);
     }
 
     getRoutes() {
+        for(let i = 0; i < this.routes.length; i++) {
+            if(this.routes[i].path == "/exapi" || this.routes[i].path == "/express") {
+                throw new RouteError(`[Unable to set route "${this.routes[i].path}]: already using by ExpressAPI"`)
+            }
+        }
         return this.routes
+    }
+
+    getHost() {
+        return `http://${this.host}:${this.PORT}`;
     }
 }
 
-
-const expressApi = new ExpressAPI(8800, "localhost");
-expressApi.Init();
 module.exports = ExpressAPI;
