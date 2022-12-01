@@ -13,7 +13,7 @@ express.RoutePost("/auth", (req, res) => {
 });
 
 express.RoutePut("/update", (req, res) => {
-    res.send(200);
+    res.send(200);  
 }, new express.ResponseModel({
     type: 'number',
     status: 200
