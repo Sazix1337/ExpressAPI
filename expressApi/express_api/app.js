@@ -32,7 +32,7 @@ xml.onreadystatechange = function() {
             addHtml(routes, `<div class='route'>
                                     <h3 class="method">${route.method}</h3>
                                     <h3 class="path">${route.path}</h3>
-                                    <h3 class="responseType">(Response type: ${route.responseType == undefined ? "None" : route.responseType})</h3>
+                                    <h3 class="responseType">(Response type: ${route.responseModel == undefined ? "None" : route.responseModel})</h3>
                                     <button class="request ${route.method}">${route.method}</button>
                             </div>`);
         });
@@ -49,7 +49,7 @@ xml.onreadystatechange = function() {
                             return;
                         }
 
-                        responseBlock.innerHTML = `RESPONSE:<br> ${xml.responseText}`;
+                        responseBlock.innerHTML = `${xml.responseText}`;
                     }
                 }
 

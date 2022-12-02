@@ -1,7 +1,9 @@
 class ExpressAPI {
+    websocket
     #express = require('express');
     #app = this.#express();
     routes = [];
+    // WebSocket = require('ws');
     RequestModel = class {
         constructor(rq) {
             this.rq = rq;
@@ -20,7 +22,12 @@ class ExpressAPI {
         this.connectMessage = connectMessage;
     }
 
-    Init() {
+    Init(/*wsPort = this.PORT*/) {   
+        // this.websocket = new this.WebSocket(`ws://${this.host}:${wsPort}`);
+        // this.websocket.on('error', (err) => {
+            // console.log(err);
+        // });
+
         const path = require('path')
         this.#app.use(this.#express.static(path.join(__dirname)))
         this.#app.get('/exapi', (req, res) => {
@@ -42,22 +49,22 @@ class ExpressAPI {
 
     RouteGet(path, callback, rs = this.ResponseModel) {
         this.#app.get(path, callback);
-        this.routes.push({path, method: "GET", callback, responseType: rs.rs.type});
+        this.routes.push({path, method: "GET", callback, responseModel: rs.rs.type});
     }
 
     RoutePost(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.post(path, callback);
-        this.routes.push({path, method: "POST", callback, requestModel: rq.rq, responseModel: rs.rs});
+        this.routes.push({path, method: "POST", callback, requestModel: rq.rq, responseModel: rs.rs.type});
     }
 
     RouteDelete(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.delete(path, callback);
-        this.routes.push({path, method: "DELETE", callback, requestModel: rq.rq, responseModel: rs.rs});
+        this.routes.push({path, method: "DELETE", callback, requestModel: rq.rq, responseModel: rs.rs.type});
     }
 
     RoutePut(path, callback, rq = this.RequestModel, rs = this.ResponseModel) {
         this.#app.put(path, callback);
-        this.routes.push({path, method: "PUT", callback, responseType: rs.rs});
+        this.routes.push({path, method: "PUT", callback, responseModel: rs.rs.type});
     }
 
     RouteUse(toUse) {
