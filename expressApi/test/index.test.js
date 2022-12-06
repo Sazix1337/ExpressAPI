@@ -18,7 +18,7 @@ express.RoutePost("/auth", (req, res) => {
         y: 20
     });
 }, new express.RequestModel(), new express.ResponseModel({
-    type: 'number'
+    type: 'object'
 }));
 
 express.RoutePut("/update", (req, res) => {
