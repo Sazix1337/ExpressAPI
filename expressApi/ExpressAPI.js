@@ -1,9 +1,8 @@
 class ExpressAPI {
-    websocket
     #express = require('express');
     #app = this.#express();
     routes = [];
-    // WebSocket = require('ws');
+    WebSocket = require('./WebSocket');
     RequestModel = class {
         constructor(rq) {
             this.rq = rq;
@@ -22,11 +21,8 @@ class ExpressAPI {
         this.connectMessage = connectMessage;
     }
 
-    Init(/*wsPort = this.PORT*/) {   
-        // this.websocket = new this.WebSocket(`ws://${this.host}:${wsPort}`);
-        // this.websocket.on('error', (err) => {
-            // console.log(err);
-        // });
+    Init(wsPort = 7000) {
+        new this.WebSocket(wsPort);
 
         const path = require('path')
         this.#app.use(this.#express.static(path.join(__dirname)))
@@ -73,7 +69,7 @@ class ExpressAPI {
 
     getRoutes() {
         for(let i = 0; i < this.routes.length; i++) {
-            if(this.routes[i].path == "/exapi" || this.routes[i].path == "/express") {
+            if(this.routes[i].path === "/exapi" || this.routes[i].path === "/express") {
                 throw new RouteError(`[Unable to set route "${this.routes[i].path}]: already using by ExpressAPI"`)
             }
         }

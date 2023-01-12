@@ -43,7 +43,7 @@ xml.onreadystatechange = function() {
             btn.addEventListener('click', () => {
                 xml.open(btn.getAttribute('routeMethod'), "http://" + server + btn.getAttribute('routepath'))
                 xml.onreadystatechange = () => {
-                    if(xml.status == 200 & xml.readyState == 4) {
+                    if(xml.status === 200 && xml.readyState === 4) {
                         if(!response.length) {
                             responseBlock.innerHTML = "No response received.";
                             return;
