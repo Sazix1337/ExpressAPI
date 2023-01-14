@@ -7,12 +7,17 @@ express.RouteGet("/", (req, res) => {
     type: 'string',
     status: 200
 }));
+
 const WebSocket = require('ws');
 const WebSocketServer = new WebSocket('ws://localhost:2000');
 
 WebSocketServer.onopen = () => {
     console.log('Connected to WebSocket');
-    WebSocketServer.send(JSON.stringify({data: 1}))
+    let i = 0;
+    setInterval(() => {
+        i = i + 1;
+        WebSocketServer.send(JSON.stringify({data: i}))
+    }, 2000);
 }
 
 express.RoutePost("/auth", (req, res) => {
